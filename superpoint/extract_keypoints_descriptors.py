@@ -27,7 +27,7 @@ def extract_superpoint_keypoints_and_descriptors(keypoint_map, descriptor_map, k
     desc = descriptor_map[keypoints[:, 0], keypoints[:, 1]]
 
     # Convert from just pts to cv2.KeyPoints
-    keypoints = [cv2.KeyPoint(p[1], p[0], 1) for p in keypoints]
+    keypoints = [cv2.KeyPoint(float(p[1]), float(p[0]), 1) for p in keypoints]
 
     return keypoints, desc
 
@@ -89,5 +89,13 @@ def get_superpoint_kp_desc(
     return kp, desc
 
 if __name__ == "__main__":
-    kp, desc = get_superpoint_kp_desc(img_file="/content/drive/MyDrive/ColabNotebooks/superpoint/data/val2014/COCO_val2014_000000000164.jpg")
-    print(kp[0].pt)
+    kp_super, desc = get_superpoint_kp_desc(img_file="/content/drive/MyDrive/ColabNotebooks/superpoint/data/val2014/COCO_val2014_000000000164.jpg", resize_image=False)
+    img = cv2.imread('/content/drive/MyDrive/ColabNotebooks/superpoint/data/val2014/COCO_val2014_000000000164.jpg')
+    sift = cv2.SIFT_create()
+    kp = sift.detect(img,None)
+    img=cv2.drawKeypoints(img,kp,img)
+    cv2.imwrite('sift_keypoints.jpg',img)
+    img = cv2.imread('/content/drive/MyDrive/ColabNotebooks/superpoint/data/val2014/COCO_val2014_000000000164.jpg')
+    img=cv2.drawKeypoints(img,kp_super,img)
+    cv2.imwrite('superpoint_keypoints.jpg',img)
+
