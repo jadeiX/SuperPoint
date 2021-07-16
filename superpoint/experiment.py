@@ -54,7 +54,7 @@ def predict(config, output_dir, n_iter):
 
 
 def set_seed(seed):
-    tf.set_random_seed(seed)
+    tf.compat.v1.set_random_seed(seed)
     np.random.seed(seed)
 
 
@@ -78,7 +78,7 @@ def _init_graph(config, with_dataset=False):
     else:
         yield model
     model.__exit__()
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
 
 
 def _cli_train(config, output_dir, args):

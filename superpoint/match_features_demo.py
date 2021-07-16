@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import tensorflow as tf  # noqa: E402
 
-from superpoint.settings import EXPER_PATH  # noqa: E402
+from settings import EXPER_PATH  # noqa: E402
 
 
 def extract_SIFT_keypoints_and_descriptors(img):
@@ -109,9 +109,9 @@ if __name__ == '__main__':
     weights_dir = Path(weights_root_dir, weights_name)
 
     graph = tf.Graph()
-    with tf.Session(graph=graph) as sess:
-        tf.saved_model.loader.load(sess,
-                                   [tf.saved_model.tag_constants.SERVING],
+    with tf.compat.v1.Session(graph=graph) as sess:
+        tf.compat.v1.saved_model.loader.load(sess,
+                                   [tf.saved_model.SERVING],
                                    str(weights_dir))
 
         input_img_tensor = graph.get_tensor_by_name('superpoint/image:0')
