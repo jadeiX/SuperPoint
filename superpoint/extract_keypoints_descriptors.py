@@ -98,4 +98,3 @@ if __name__ == "__main__":
     img = cv2.imread('/content/drive/MyDrive/ColabNotebooks/superpoint/data/val2014/COCO_val2014_000000000164.jpg')
     img=cv2.drawKeypoints(img,kp_super,img)
     cv2.imwrite('superpoint_keypoints.jpg',img)
-
